@@ -1,0 +1,7 @@
+{
+  "name": "workout-frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
