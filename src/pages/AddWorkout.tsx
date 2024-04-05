@@ -22,12 +22,7 @@ const AddWorkout: React.FC = () => {
   const [exerciseList, setExerciseList] = useState([]);
   const [currentExercise, setCurrentExercise] = useState({});
 
-  const [timeValue, setTimeValue] = useState("Minutes");
-
-  function changeTimeValue(e: any) {
-    setTimeValue(e.target.value);
-    console.log(timeValue);
-  }
+  const [timeValue, setTimeValue] = useState("SECONDS");
 
   function changeWorkoutType(e: any): void {
     setWorkoutType(e.target.value);
@@ -147,15 +142,21 @@ const AddWorkout: React.FC = () => {
                   trigger="time-picker"
                   columns={[
                     {
-                      name: "units of time",
+                      name: "units",
                       options: [
-                        { text: "Seconds", value: "seconds" },
-                        { text: "minutes", value: "Minutes" },
-                        { text: "hours", value: "Hours" },
+                        { text: "SECONDS", value: "SECONDS" },
+                        { text: "MINUTES", value: "MINUTES" },
+                        { text: "HOURS", value: "HOURS" },
                       ],
                     },
                   ]}
-                  buttons={[]}
+                  buttons={[
+                    { text: "Cancel", role: "cancel" },
+                    {
+                      text: "Confirm",
+                      handler: (e) => setTimeValue(e.units.value),
+                    },
+                  ]}
                 ></IonPicker>
               </IonItem>
             </IonList>
