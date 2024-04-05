@@ -20,7 +20,7 @@ import {
   book,
 } from "ionicons/icons";
 import Tab1 from "./pages/Tab1";
-import Tab2 from "./pages/Tab2";
+import Tab2 from "./pages/AddWorkout";
 import Tab3 from "./pages/Tab3";
 import Settings from "./pages/Settings";
 
