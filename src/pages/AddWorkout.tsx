@@ -10,6 +10,7 @@ import {
   IonRadioGroup,
   IonRadio,
   IonPicker,
+  IonButton,
 } from "@ionic/react";
 import { useState } from "react";
 import ExploreContainer from "../components/ExploreContainer";
@@ -18,9 +19,32 @@ import "./AddWorkout.css";
 const AddWorkout: React.FC = () => {
   const [currentWorkout, setCurrentWorkout] = useState({});
   const [workoutType, setWorkoutType] = useState("");
+  const [exerciseList, setExerciseList] = useState([]);
+  const [currentExercise, setCurrentExercise] = useState({});
+
+  const [timeValue, setTimeValue] = useState("Minutes");
+
+  function changeTimeValue(e: any) {
+    setTimeValue(e.target.value);
+    console.log(timeValue);
+  }
 
   function changeWorkoutType(e: any): void {
     setWorkoutType(e.target.value);
+  }
+
+  function makeCurrentWorkout(e: any) {
+    console.log(e.target);
+    setCurrentWorkout((item) => {
+      return { ...item, [e.target.id]: e.target.value };
+    });
+  }
+
+  function makeCurrentExercise(e: any) {
+    setCurrentExercise((prev) => {
+      return { ...prev, [e.target.id]: e.target.value };
+    });
+    console.log(currentExercise);
   }
   return (
     <IonPage>
@@ -40,11 +64,21 @@ const AddWorkout: React.FC = () => {
         </IonTitle>
         <IonList>
           <IonItem>
-            <IonInput label="Name" type="text"></IonInput>
+            <IonInput
+              onIonChange={makeCurrentWorkout}
+              title="Name"
+              id="workout-name"
+              color="tertiary"
+              label="Name"
+              type="text"
+            ></IonInput>
           </IonItem>
           <IonItem>
             {" "}
             <IonInput
+              onIonChange={makeCurrentWorkout}
+              id="description"
+              color="tertiary"
               label="Description"
               type="text"
               clearInput={true}
@@ -57,10 +91,18 @@ const AddWorkout: React.FC = () => {
         <IonList>
           <IonItem>
             <IonRadioGroup>
-              <IonRadio onClick={changeWorkoutType} value="cardio">
+              <IonRadio
+                onClick={changeWorkoutType}
+                color="tertiary"
+                value="cardio"
+              >
                 Cardio
               </IonRadio>
-              <IonRadio onClick={changeWorkoutType} value="weight-lifting">
+              <IonRadio
+                color="tertiary"
+                onClick={changeWorkoutType}
+                value="weight-lifting"
+              >
                 Weight Lifting
               </IonRadio>
             </IonRadioGroup>
@@ -71,17 +113,50 @@ const AddWorkout: React.FC = () => {
             <IonTitle class="subheader">Cardio</IonTitle>
             <IonList>
               <IonItem>
-                <IonInput label="Exercise name" type="text"></IonInput>
+                <IonInput
+                  id="cardio-exercise-name"
+                  onIonChange={makeCurrentExercise}
+                  color="tertiary"
+                  label="Exercise name"
+                  type="text"
+                ></IonInput>
               </IonItem>
               <IonItem>
-                <IonInput label="Distance"></IonInput>
+                <IonInput
+                  id="distance"
+                  onIonChange={makeCurrentExercise}
+                  color="tertiary"
+                  label="Distance"
+                  type="number"
+                ></IonInput>
                 <IonPicker>
                   <IonItem>Something</IonItem>
                 </IonPicker>
               </IonItem>
 
               <IonItem>
-                <IonInput label="Time"></IonInput>
+                <IonInput
+                  id="time"
+                  onIonChange={makeCurrentExercise}
+                  color="tertiary"
+                  label="Time"
+                  type="number"
+                ></IonInput>
+                <IonButton id="time-picker">{timeValue}</IonButton>
+                <IonPicker
+                  trigger="time-picker"
+                  columns={[
+                    {
+                      name: "units of time",
+                      options: [
+                        { text: "Seconds", value: "seconds" },
+                        { text: "minutes", value: "Minutes" },
+                        { text: "hours", value: "Hours" },
+                      ],
+                    },
+                  ]}
+                  buttons={[]}
+                ></IonPicker>
               </IonItem>
             </IonList>
           </div>

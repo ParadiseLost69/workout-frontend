@@ -3,3 +3,9 @@
 }
 
 /*INPUTS */
+:host(.radio-checked) .radio-icon {
+  border-color: red !important;
+}
+.radio-inner {
+  color: red;
+}
